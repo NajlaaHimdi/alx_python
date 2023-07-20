@@ -1,3 +1,5 @@
-for i in range(10):
-    for j in range(i + 1, 10):
-        print(f"{i}{j}", end=', ' if i < 8 or j < 9 else '\n')
+for i in range(100):  
+    if i == 99:
+        print(i)
+    else:
+         print("{:02}" .format(i), end=", ")
