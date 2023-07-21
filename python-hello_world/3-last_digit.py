@@ -1,19 +1,19 @@
 #!/usr/bin/python3
+
 import random
+
 number = random.randint(-10000, 10000)
-# YOUR CODE HERE
 
+# Print the generated number
+print("The string Last digit of {}, followed by".format(number))
+print("the number {}, followed by".format(number))
+print("the string is {}, followed by".format(str(number)[-1]))
 
-last_digit = abs(number) % 10
-if number < 0:
-    last_digit = -last_digit
-    print("Last digit of", number, "is", last_digit, end=" ")
+# Check the last digit and print the corresponding message
+last_digit = number % 10
+if last_digit > 5:
+    print("if the last digit is greater than 5: the string and is greater than 5")
+elif last_digit == 0:
+    print("if the last digit is 0: the string and is 0")
 else:
-    print("Last digit of", number, "is", last_digit, end=" ")
-
-if number > 5:
-    print("and is greater than 5")
-elif number == 0:
-    print("and is 0")
-else:
-    print("and is less than 6 and not 0")
+    print("if the last digit is less than 6 and not 0: the string and is less than 6 and not 0")
