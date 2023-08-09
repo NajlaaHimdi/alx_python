@@ -1,26 +1,31 @@
+#!/usr/bin/python3
 """
-This module is an empty class 
+    This is a base class
 """
-class DefinitionOverrideMetaClass(type):
-    """def __new__(cls, name, bases, attrs):
-        # Customize the class creation process here
-        return super().__new__(cls, name, bases, attrs)"""
-
-    def __dir__(cls):
-        """
-        Returns:
-            list: List of attributes excluding __init_subclass__.
-        """
-        return [attribute for attribute in
-                super().__dir__() if attribute != '__init_subclass__']
 
 
-class BaseGeometry():
+class TypeMetaClass(type):
     """
-    This class models an empty class
+    This is a metaclass used to represent the class type inorder to eliminate
+    the inherited method init subclass
     """
     def __dir__(cls) -> None:
         """
-        control access to some inherited attributes
+        Exclude attribute init subclass in dir()
         """
-        return [attribute for attribute in super().__dir__() if attribute != '__init_subclass__']
+        attributes = super().__dir__()
+
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']
+class BaseGeometry(metaclass=TypeMetaClass):
+    """
+    This is a base class
+    """
+    pass
+
+    def __dir__(cls) -> None:
+        """
+        Exclude attribute init subclass in dir()
+        """
+        attributes = super().__dir__()
+
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']
