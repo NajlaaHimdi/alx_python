@@ -1,81 +1,36 @@
-
+#!/usr/bin/python3
 """
-Module containing the Rectangle class.
+    This is a base class
 """
-class DefinitionOverrideMetaClass(type):
-    """def __new__(cls, name, bases, attrs):
-        # Customize the class creation process here
-        return super().__new__(cls, name, bases, attrs)"""
-
-    def __dir__(cls):
-        """
-        Returns:
-            list: List of attributes excluding __init_subclass__.
-        """
-        return [attribute for attribute in
-                super().__dir__() if attribute != '__init_subclass__']
-    
-    
-class BaseGeometry():
+BaseGeometry = __import__('5-base_geometry').BaseGeometry
+class TypeMetaClass(type):
     """
-    This class models an empty class
+    This is a metaclass used to represent the class type inorder to eliminate
+    the inherited method init subclass
     """
     def __dir__(cls) -> None:
         """
-        control access to some inherited attributes
+        Exclude attribute init subclass in dir()
         """
         attributes = super().__dir__()
-        n_attributes = []
-        for attr in attributes:
-            if attr != '__init_subclass__':
-                n_attributes.append(attr)
-        return n_attributes
-    
-    def area(self):
-        """a method to raise an exception with a message"""
-        raise Exception("area() is not implemented")
-    
-    def integer_validator(self, name, value):
-        """
-        A method that validates value
-        """
-        if not isinstance(value, int):
-            raise TypeError("{} must be an integer".format(name))
-        if value <= 0:
-            raise ValueError("{} must be greater than 0".format(name))
+        return [attribute for attribute in attributes if attribute != '__init_subclass__']
 
-class Rectangle(BaseGeometry):
+
+class Rectangle(BaseGeometry, metaclass=TypeMetaClass):
     """
-    Models a rectangle. A derived class of BaseGeometgry
+    This is a sub-class of the baseclass
     """
-    def __dir__(cls) -> None:
-        """
-        Removes __init_subclass__ from list of class attributes
-        """
-        attributes = super().__dir__()
-        n_attributes = []
-        for attr in attributes:
-            if attr != '__init_subclass__':
-                n_attributes.append(attr)
-        return n_attributes
-    
     def __init__(self, width, height):
         """
-        Call attriutes of parent.
-        validates attributes for positive integer
+        function sets the values width and height and ensures
         """
+        BaseGeometry.integer_validator(self, "width", width)
+        BaseGeometry.integer_validator(self, "height", height)
         self.__width = width
         self.__height = height
-        self.integer_validator("width", width)
-        self.integer_validator("height", height)
-
-    def __str__(self):
-            """
-            Returns the string representation"""
-            return "[Rectangle] {}/{}".format(self.__width, self.__height)
 
     def area(self):
-            """
-            This method computes the area of the triangle
-            """
-            return self.__width * self.__height
+        return self.__width * self.__height
+    
+    def __str__(self):
+        return f"[Rectangle] {self.__width}/{self.__height}"
