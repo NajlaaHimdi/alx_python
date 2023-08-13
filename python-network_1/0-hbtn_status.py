@@ -1,25 +1,13 @@
 #!/usr/bin/python3
-"""A script that
-- fetches https://alx-intranet.hbtn.io/status.
-- uses urlib package
 """
-
+Python script that fetches https://alu-intranet.hbtn.io/status
+"""
 import requests
 
-def main():
-    url = "https://intranet.hbtn.io/status"
+req = 'https://alu-intranet.hbtn.io/status'
+response = requests.get(req)
 
-    try:
-        response = requests.get(url)
-        response_data = response.json()
-
-        print("Body response:")
-        print(f"\t- type: {response_data['__class__']}")
-        print(f"\t- content: {response_data['content']}")
-        print(f"\t- utf8 content: {response_data['utf8content']}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-
-if __name__ == "__main__":
-    main()
+print ("Body response:")
+print(f"\t- type: {type(response.text)}")
+print(f"\t- content: {response.text}")
+    
